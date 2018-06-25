@@ -1,0 +1,37 @@
+{{> header}}
+
+
+<section id="main-content">
+     
+        <div class="col-lg-6">
+            <section class="panel">
+              {{!-- <header class="panel-heading">
+                New Story
+              </header> --}}
+              <div class="panel-body">
+                <form role="form" method="POST"   action="/updateStory">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">StoryText</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" value="{{story.storyText}}" name="storyText" placeholder="Enter Story">
+                    <input type="text" id="exampleInputEmail1"  value="{{story._id}}" name="storyId" hidden>
+                    {{!-- <input type="text" id="creatorName"  value="{{user.username}}" name="creatorName" hidden> --}}
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                    {{#if type}}
+                        <input type="checkbox" id="mycheckbox" value="private" name="checkbox" checked ="checked"> Private</label>
+                    {{else}}
+                        <input type="checkbox" id="mycheckbox" value="private" name="checkbox" > Private</label>
+                    {{/if}}
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                  <a href="/mystory"><button type="button"  class="btn btn-danger">Cancel</button></a>
+                </form>
+                
+
+              </div>
+            </section>
+          </div>
+
+    </section>
+  {{> footer}}

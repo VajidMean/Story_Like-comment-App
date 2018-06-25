@@ -1,0 +1,73 @@
+{{> header}}
+<script>
+    $(document).ready(function () {
+        var t = $('#example').DataTable();
+    });
+
+</script>
+<script>
+
+  setTimeout(function() {
+    $('#successMessage').fadeOut('slow');
+}, 1500);
+
+</script>
+
+<style> 
+  .flashmsg {
+    position: fixed;
+    right: 15px;
+    top: 68px;    
+  }
+</style>
+
+
+<section id="main-content">
+      {{#if cmntMsg}}
+        <h3 id="successMessage"  class="alert alert-success flashmsg">{{cmntMsg}}</h3>
+    {{/if}}
+    <div class="col-lg-6">
+        <section class="panel">
+            <h2 style="color:#543E08;"> {{story.storyText}} </h2>
+            <hr>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        {{!--
+                        <th>Column 4</th> --}} {{!--
+                        <th>Column 5</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each story.comment}}
+                    <tr>
+                        <td>{{commentorName}}</td>
+                        <td>{{commentText}}</td>
+                        <td>{{commentDate}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+            <hr>
+            <form action="/addnewComment" method="post">
+                <div class="form-group">
+                    <label for="usr">Your Comment:</label>
+                    <input type="text" class="form-control" name="commentText" id="commentText" required>
+                    <input type="text" class="form-control" name="commentorId" id="commentorId" value="{{user._id}}" hidden>
+                    <input type="text" class="form-control" name="commentorName" id="commentorName" value="{{user.username}}" hidden>
+                    <input type="text" class="form-control" name="storyID" id="storyID" value="{{story._id}}" hidden>
+                </div>
+
+                <button type="submit" id="addRow" class="btn btn-primary">Post</button>
+                <a href="/publicStories">
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                </a>
+            </form>
+        </section>
+    </div>
+</section>
+{{> footer}}

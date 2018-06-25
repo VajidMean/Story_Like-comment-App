@@ -1,0 +1,46 @@
+
+{{> header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<body>
+    
+<div class="container">
+    <form class="login-form" action="/updateUser" method="POST">
+      <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile">Name : </i></span>&nbsp;&nbsp;&nbsp;  
+          <input type="text" class="form-control" id="username" placeholder="username" name="username" value="{{username}}" autofocus required>
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile">Email : </i></span>&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" id="email" placeholder="Email" name="email"  value="{{user_email}}" autofocus required>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+          <input type="password" class="form-control" id="password" placeholder="password" name="password" value="{{user_pass}}" required hidden>
+          
+          <input type="text" name="hidden_id" value="{{_id}}" hidden>
+        </div>
+       {{errMsg}} 
+        {{!-- <button class="btn btn-success btn-lg btn-block" type="submit">Update</button> --}}
+        <br>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="/adminuser"><button type="button"  class="btn btn-danger">Cancel</button></a>
+      </div>
+    </form>
+    {{!-- <a href="/adminuser"><button class="btn btn-danger btn-lg btn-block">cancel</button></a> --}}
+  </div>
+
+{{> footer}}

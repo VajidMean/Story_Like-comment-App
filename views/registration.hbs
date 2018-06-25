@@ -1,0 +1,132 @@
+{{> header}}
+
+<script>
+  function checkFname() {
+
+    const name = document.getElementById('validationDefault01').value;
+    let nameFormate = /^[a-zA-Z]+[a-zA-Z0-9]*$/;
+
+    if (!name) {
+      document.getElementById("validationDefault01").style.border = "1px solid red";
+      $("#name_status").html(
+        '<span id="namevalue" style="color:red">Name field is Empty!</span>'
+      );
+    } else {
+      if (!nameFormate.test(name)) {
+        document.getElementById("validationDefault01").style.border = "1px solid red";
+        $("#name_status").html('<span id="namevalue" style="color:red">Please enter valid Name!</span>');
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: '/checkname',
+          data: {
+            username: name
+          },
+          success: function (data) {
+            if (data === '') {
+              $("#name_status").html('<span id="namevalue" style="color:green">OK</span>');
+              document.getElementById("validationDefault01").style.border = "1px solid #00FF00";
+              return true;
+            } else if (data.username === name) {
+              document.getElementById("validationDefault01").style.border = "1px solid red";
+              $("#name_status").html('<span id="namevalue" style="color:red">Already taken</span>');
+              return false;
+            }
+          }
+        });
+      }
+    }
+  }
+
+  function checkEmail() {
+    const userEmail = document.getElementById('validationDefaultUsername').value;
+    if (userEmail) {
+      const emailformate = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      if (emailformate.test(userEmail)) {
+        $.ajax({
+          type: 'POST',
+          url: '/checkMail',
+          data: {
+            email: userEmail
+          },
+          success: function (data) {
+            if (data === '') {
+              $("#email_status").html('<span id="emailvalue" style="color:green">OK</span>');
+              document.getElementById("validationDefaultUsername").style.border = "1px solid #00FF00";
+              return true;
+            } else if (data.email === userEmail) {
+              document.getElementById("validationDefaultUsername").style.border = "1px solid red";
+              $("#email_status").html('<span id="emailvalue" style="color:red">Already taken</span>');
+              return false;
+            }
+          }
+        });
+      } else {
+        document.getElementById("validationDefaultUsername").style.border = "1px solid red";
+        $("#email_status").html('<span id="emailvalue" style="color:red">Wrong email !</span>');
+      }
+    } else {
+      document.getElementById("validationDefaultUsername").style.border = "1px solid red";
+      $("#email_status").html('<span id="emailvalue" style="color:red">Email is empty!</span>');
+    }
+  }
+
+  function validateMyForm() {
+    let nameValue = $("#namevalue").text();
+    let emailValue = $("#emailvalue").text();
+    if (nameValue === "OK" && emailValue === "OK") {
+      return true
+    }
+    alert("Please fill form correctly !");
+    return false;
+  }
+
+</script>
+
+<div class="container" style="width: 35%">
+
+  <h1 class="alert alert-info">{{title}}</h1>
+
+  {{#if error}} {{#each error}}
+  <div class="alert alert-danger">
+    {{this.msg}}
+  </div>
+  {{/each}} {{/if}}
+
+  <form method="POST" name="myform" action="/registration" onsubmit="return validateMyForm();">
+
+          <div class="form-group">
+            <label for="validationDefault02">Username</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="validationDefault01" placeholder="User name" name="username" value="{{userData.username}}"
+                onkeyup="checkFname();" onfocus="checkFname();" required>
+              <p id="name_status" name="name_status"></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="validationDefaultUsername">Email</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+              </div>
+              <input type="email" class="form-control" id="validationDefaultUsername" placeholder="Email" aria-describedby="inputGroupPrepend2"
+                name="email" onkeyup="checkEmail();" value="{{userData.email}}" required>
+              <p id="email_status" name="email_status"></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="validationDefault02">Password</label>
+            <input type="password" class="form-control" id="validationDefault02" placeholder="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="validationDefault02">Re-Enter Password</label>
+            <input type="password" class="form-control" id="validationDefault03" placeholder="password" name="confirm_password">
+          </div>
+
+          <button class="btn btn-primary" id="registerbtn" type="submit">Register Me</button>
+  </form>
+
+</div>
+{{> footer}}

@@ -1,0 +1,34 @@
+{{> header}}
+<div class="container" style="width: 35%">
+    
+    {{#if message}}
+        <h3 class="alert alert-danger">{{message}}</h3>
+    {{/if}}
+    
+    <h1 class="alert alert-info">{{title}}</h1>
+
+    <form class="form-signin" method="POST" action="/login">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input data-toggle="tooltip" title="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                name="email" placeholder="Enter email" value="{{entered_email}}" autofocus="autofocus">
+            <small id="emailErr" class="form-text text-muted">
+                <font color="red">{{email_err}}</font>
+            </small>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input data-toggle="tooltip" title="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                name="password">
+            <small id="passwordErr" class="form-text text-muted">
+                <font color="red">{{pass_err}}</font>
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+</div>
+
+{{> footer}}

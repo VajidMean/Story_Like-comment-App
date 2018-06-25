@@ -1,0 +1,84 @@
+{{> header}}
+{{> userNav}}
+
+<script>
+
+  setTimeout(function() {
+    $('#successMessage').fadeOut('slow');
+}, 1500);
+
+</script>
+
+<style> 
+  .flashmsg {
+    position: fixed;
+    right: 15px;
+    top: 68px;    
+  }
+</style>
+
+ <section id="main-content">
+     {{#if cmntmsg}}
+        <h3 id="successMessage"  class="alert alert-success flashmsg">{{cmntmsg}}</h3>
+    {{/if}}
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="far fa-bullseye"></i> hello {{user.username}} &nbsp; :</h3>
+            <ol class="breadcrumb">
+              {{!-- <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+              <li><i class="fa fa-table"></i>Table</li>
+              <li><i class="fa fa-th-list"></i>Basic Table</li> --}}
+            </ol>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box brown-bg">
+              <i class="far fa-bullseye"></i>
+              <div class="count">{{storyCount}}</div>
+              <div class="title">Total Story</div>
+            </div>
+            <!--/.info-box-->
+          </div>
+        
+        </div>
+        <!-- page start-->
+        <div class="row">
+          <div class="col-sm-6">
+            <section class="panel">
+              <header class="panel-heading">
+                Public Stories  
+              </header>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Story Text</th>
+                    <th>Creator</th>
+                    <th>Like</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   {{#each allStories}}
+                  <tr>
+                    <td>{{storyText}}</td>
+                    <td>{{_creatorName}}</td>
+                    <td>{{likes}}<a class="btn btn-success " id="like" href="/likeStory/{{_id}}"><i  class="fa fa-thumbs-up" aria-hidden="true"></i></a></td>
+                    <td>{{commentCount}}<a href="comment/{{_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a></td>
+                  </tr>
+                 {{/each}}
+                </tbody>
+              </table>
+            </section>
+          </div>
+          
+        </div>
+        
+        <!-- page end-->
+      </section>
+    </section>
+  {{> footer}}
+
+  {{!-- likeby:{$elemMatch:{$eq:ObjectId("51780f796ec4051a536015cf")}} --}}

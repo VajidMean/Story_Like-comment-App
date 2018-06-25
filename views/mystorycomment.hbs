@@ -1,0 +1,68 @@
+{{> header}}
+<script>
+    $(document).ready(function () {
+        var t = $('#example').DataTable();
+         var counter = 1;
+         
+    });
+</script>
+{{!-- for flash notification --}}
+ <script>
+
+    setTimeout(function() {
+      $('#successMessage').fadeOut('slow');
+  }, 1500);
+
+  </script>
+
+  <style> 
+    .flashmsg {
+      position: fixed;
+      right: 15px;
+      top: 68px;    
+    }
+  </style>
+{{!-- end --}}
+
+
+<section id="main-content">
+    {{#if cmndltMsg}}
+        <h3 id="successMessage"  class="alert alert-success flashmsg">{{cmndltMsg}}</h3>
+    {{/if}}
+    <div class="col-lg-6">
+        <section class="panel">
+            <h2 style="color:#543E08;"> {{story.storyText}} </h2>
+            <hr>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        {{!-- <th>#</th> --}}
+                        <th>Name</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each story.comment}}
+                    <tr>
+                        {{!-- <td>no</td> --}}
+                        <td>{{commentorName}}</td>
+                        <td>{{commentText}}</td>
+                        <td>{{commentDate}}</td>
+                        <td><a class="btn btn-danger btn-sm" href="/deleteCmnt/{{_id}}"><i  class="fa fa-trash-o" aria-hidden="true">&times;</i></a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+            <hr>
+            
+                <a href="/mystory">
+                    <button type="button" class="btn btn-danger">Back</button>
+                </a>
+            
+        </section>
+    </div>
+</section>
+{{> footer}}
