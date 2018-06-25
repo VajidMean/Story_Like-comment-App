@@ -7,4 +7,5 @@ const auth_mdlwr = function auth_mdlwr() {
         res.redirect('/login');
     }
 }
+
 module.exports = {auth_mdlwr};
